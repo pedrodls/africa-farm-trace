@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Africa Farm Trace
 
-## Getting Started
+Africa Farm Trace is an MVP for transparent timber traceability from African
+producers to responsible markets. It demonstrates how a verification code can
+connect a timber lot to its producer, origin, chain-of-custody events, field
+polygons, and parcel-level geolocation evidence.
 
-First, run the development server:
+## MVP capabilities
+
+- Public timber-lot verification by code.
+- Producer lot registration with locally generated codes.
+- Browser persistence using `localStorage`.
+- Dashboard with registered lots, tracked volume, and evidence coverage.
+- Field and parcel polygon visualization with separate colors.
+- Responsive interface using the Lato typeface.
+- Explicit distinction between demo evidence and legal EUDR certification.
+
+The map geometry and evidence are illustrative demo data. Production
+deployment would validate geolocation, certification, and due-diligence
+documents through authoritative systems and approved partners.
+
+## Demo flow
+
+1. Start the application.
+2. Select **Verify** and enter `AF-KE-2026-001`.
+3. Review the lot profile, custody timeline, field boundaries, and colored
+   parcels.
+4. Select **Register lot** to create a producer lot in the browser.
+5. Select **Dashboard** to review registered volume and recent lots.
+
+## Getting started
+
+This project uses Next.js, React, TypeScript, and pnpm.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Validation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run the production checks before presenting:
 
-## Learn More
+```bash
+pnpm lint
+pnpm build
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Project structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The page is intentionally composed from focused components. Each TypeScript
+source file under `app/` and `app/components/` is kept below 100 lines:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```text
+app/
+  components/
+    BrandNav.tsx          # Primary navigation
+    DashboardView.tsx     # Portfolio metrics and recent lots
+    FieldMap.tsx          # Field and parcel SVG polygons
+    ProducerView.tsx      # Producer registration form
+    TraceView.tsx         # Lot profile and custody timeline
+    VerificationView.tsx  # Public lookup experience
+    data.ts               # Seed data and polygon fixtures
+    storage.ts            # Browser persistence boundary
+    types.ts              # Shared domain types
+    useTraceability.ts    # State and business actions
+  globals.css             # Shared responsive visual system
+  layout.tsx              # Metadata and Lato font setup
+  page.tsx                # Composition only
+```
 
-## Deploy on Vercel
+## Scope and next steps
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This is a hackathon MVP. Authentication, a production database, authoritative
+EUDR checks, laboratory integrations, customs workflows, and external GIS
+validation are intentionally outside the current scope.

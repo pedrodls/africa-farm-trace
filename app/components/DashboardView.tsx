@@ -1,0 +1,7 @@
+import { TimberLot } from "./types";
+
+type Props = { lots: TimberLot[]; volume: number; coverage: number; onNew: () => void; onSelect: (code: string) => void };
+
+export default function DashboardView({ lots, volume, coverage, onNew, onSelect }: Props) {
+  return <section className="workspace-shell"><div className="section-intro dashboard-intro"><div><p className="eyebrow">Producer overview</p><h1>Your traceability portfolio.</h1><p>Monitor the lots registered in this browser session.</p></div><button className="primary-button compact" onClick={onNew}>Register new lot <span>+</span></button></div><div className="metric-grid"><div className="metric-card"><span>Registered lots</span><strong>{lots.length}</strong><small>Across your workspace</small></div><div className="metric-card"><span>Tracked volume</span><strong>{volume.toFixed(1)} <i>m³</i></strong><small>Timber represented</small></div><div className="metric-card"><span>Evidence coverage</span><strong>{coverage}<i>%</i></strong><small>Lots with origin signals</small></div></div><div className="recent-panel"><div className="panel-heading"><h2>Recent lots</h2><span>{lots.length} total</span></div>{lots.map((lot) => <button className="recent-lot" key={lot.code} onClick={() => onSelect(lot.code)}><span className="lot-status">✓</span><span><strong>{lot.producer}</strong><small>{lot.origin} · {lot.quantity}</small></span><b>{lot.code} →</b></button>)}</div></section>;
+}
